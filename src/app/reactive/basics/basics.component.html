@@ -1,0 +1,101 @@
+<h2>Basic Reactive Form</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="save()">
+
+            <!-- Product -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Product</label>
+                </div>
+                <div class="col-sm-9">
+                    <input
+                        formControlName="product"
+                        type="text"
+                        class="form-control"
+                        placeholder="Product name...">
+                    <span
+                        *ngIf="fieldIsValid('product')"
+                        class="form-text text-danger">
+                        Product name must have at least 3 characters
+                    </span>
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Price</label>
+                </div>
+                <div class="col-sm-9">
+                    <input
+                        formControlName="price"
+                        type="number"
+                        class="form-control"
+                        placeholder="Product price...">
+                    <span
+                        *ngIf="fieldIsValid('price')"
+                        class="form-text text-danger">
+                        Price cannot be negative
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stock units -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Stock units</label>
+                </div>
+                <div class="col-sm-9">
+                    <input
+                        formControlName="stockUnits"
+                        type="number"
+                        class="form-control"
+                        placeholder="Stock units...">
+                    <span
+                        *ngIf="fieldIsValid('stockUnits')"
+                        class="form-text text-danger">
+                        Stock units cannot be negative
+                    </span>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-9">
+                    <button
+                        type="submit"
+                        class="btn btn-primary float-end">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Debug info -->
+<div class="row">
+    <div class="col">
+        <span><strong>Valid: </strong></span>
+        <pre>{{myForm.valid|json}}</pre>
+        <br>
+        <span><strong>Pristine: </strong></span>
+        <pre>{{myForm.pristine|json}}</pre>
+        <br>
+        <span><strong>Touched: </strong></span>
+        <pre>{{myForm.touched|json}}</pre>
+        <br>
+        <span><strong>Value: </strong></span>
+        <pre>{{myForm.value|json}}</pre>
+        <br>
+        <span><strong>CustomMinDirective: </strong></span>
+        <pre>{{myForm.controls['stockUnits'].errors|json}}</pre>
+    </div>
+</div>

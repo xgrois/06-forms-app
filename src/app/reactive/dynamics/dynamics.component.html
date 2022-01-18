@@ -1,0 +1,96 @@
+<h2>Dynamic Reactive Form</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="save()">
+
+            <!-- Name -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Product</label>
+                </div>
+                <div class="col-sm-9">
+                    <input 
+                        formControlName="name"
+                        type="text" class="form-control"
+                        placeholder="Person name...">
+                    <span 
+                        *ngIf="fieldIsValid('name')"
+                        class="form-text text-danger">
+                        Name is required
+                    </span>
+                </div>
+            </div>
+
+            <!-- Add Favorite -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Add</label>
+                </div>
+                <div class="col-sm-9">
+
+                    <div class="input-group">
+                        <input 
+                            [formControl]="newFavorite"
+                            (keyup.enter)="addNewFavorite()"
+                            type="text"
+                            class="form-control"
+                            placeholder="Add favorite...">
+                        <button (click)="addNewFavorite()" class="btn btn-outline-secondary" type="button">Add</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- List of favorites -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Favorites</label>
+                </div>
+                <div class="col-sm-9" formArrayName="favorites">
+                    <div 
+                        class="input-group mb-1"
+                        *ngFor="let f of favoritesArr.controls; let i = index">
+                        <input type="text" class="form-control" id="f-{{i}}" [formControlName]="i">
+                        <button (click)="deleteFavorite(i)" class="btn btn-outline-danger" type="button">Delete</button>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary float-end">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Debug info -->
+<div class="row">
+    <div class="col">
+        <span><strong>Valid: </strong></span>
+        <pre>{{myForm.valid|json}}</pre>
+        <br>
+        <span><strong>Pristine: </strong></span>
+        <pre>{{myForm.pristine|json}}</pre>
+        <br>
+        <span><strong>Touched: </strong></span>
+        <pre>{{myForm.touched|json}}</pre>
+        <br>
+        <span><strong>Value: </strong></span>
+        <pre>{{myForm.value|json}}</pre>
+        <br>
+        <span><strong>New Favorite: </strong></span>
+        <pre>{{newFavorite.valid|json}}</pre>
+    </div>
+</div>

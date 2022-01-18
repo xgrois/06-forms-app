@@ -1,0 +1,107 @@
+<h2>Basic Template Form</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="submit()" #myForm="ngForm" autocomplete="off">
+
+            <!-- Product -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Product</label>
+                </div>
+                <div class="col-sm-9">
+                    <input
+                        [ngModel]="initialForm.product"
+                        name="product"
+                        type="text"
+                        required
+                        minlength="3"
+                        class="form-control"
+                        placeholder="Product name...">
+                    <span
+                        *ngIf="productNotValid()"
+                        class="form-text text-danger">
+                        Product name must have at least 3 characters
+                    </span>
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Price</label>
+                </div>
+                <div class="col-sm-9">
+                    <input
+                    [ngModel]="initialForm.price"
+                        name="price"
+                        required
+                        min="0"
+                        type="number"
+                        class="form-control"
+                        placeholder="Product price...">
+                    <span
+                        *ngIf="priceNotValid()"
+                        class="form-text text-danger">
+                        Price cannot be negative
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stock units -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Stock units</label>
+                </div>
+                <div class="col-sm-9">
+                    <input
+                    [ngModel]="initialForm.stockUnits"
+                        customMin
+                        [min]="0"
+                        required
+                        name="stockUnits"
+                        type="number"
+                        class="form-control"
+                        placeholder="Stock units...">
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-9">
+                    <button
+                        type="submit"
+                        [disabled]="myForm.invalid"
+                        class="btn btn-primary float-end">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Debug info -->
+<div class="row">
+    <div class="col">
+        <span><strong>Valid: </strong></span>
+        <pre>{{myForm.valid|json}}</pre>
+        <br>
+        <span><strong>Pristine: </strong></span>
+        <pre>{{myForm.pristine|json}}</pre>
+        <br>
+        <span><strong>Touched: </strong></span>
+        <pre>{{myForm.touched|json}}</pre>
+        <br>
+        <span><strong>Value: </strong></span>
+        <pre>{{myForm.value|json}}</pre>
+        <br>
+        <span><strong>CustomMinDirective: </strong></span>
+        <pre>{{myForm.controls['stockUnits'].errors|json}}</pre>
+    </div>
+</div>

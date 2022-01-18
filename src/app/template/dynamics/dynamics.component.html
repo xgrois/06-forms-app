@@ -1,0 +1,90 @@
+<h2>Dynamic Template Form</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="submit()" #myForm="ngForm" autocomplete="off">
+
+            <!-- Name -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Product</label>
+                </div>
+                <div class="col-sm-9">
+                    <input [ngModel]="person.name" name="name" type="text" required class="form-control"
+                        placeholder="Person name...">
+                    <span *ngIf="nameIsEmpty()" class="form-text text-danger">
+                        Name is required
+                    </span>
+                </div>
+            </div>
+
+            <!-- Add Favorite -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Add</label>
+                </div>
+                <div class="col-sm-9">
+
+                    <div class="input-group">
+                        <input 
+                            [(ngModel)]="newTitle"
+                            name="newTitle"
+                            (keydown)="onKeydown($event)"
+                            type="text"
+                            class="form-control"
+                            placeholder="Add favorite...">
+                        <button (click)="add()" class="btn btn-outline-secondary" type="button">Add</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- List of favorites -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label class="col-form-label">Favorites</label>
+                </div>
+                <div class="col-sm-9">
+                    <div *ngFor="let f of person.favorites; index as i" class="input-group mb-1">
+                        <input class="form-control" [(ngModel)]="f.title" name="f.title_{{i}}">
+                        <button (click)="delete(i)" class="btn btn-outline-danger" type="button">Delete</button>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row mb-3">
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-9">
+                    <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary float-end">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Debug info -->
+<div class="row">
+    <div class="col">
+        <span><strong>Valid: </strong></span>
+        <pre>{{myForm.valid|json}}</pre>
+        <br>
+        <span><strong>Pristine: </strong></span>
+        <pre>{{myForm.pristine|json}}</pre>
+        <br>
+        <span><strong>Touched: </strong></span>
+        <pre>{{myForm.touched|json}}</pre>
+        <br>
+        <span><strong>Value: </strong></span>
+        <pre>{{myForm.value|json}}</pre>
+        <span><strong>Person: </strong></span>
+        <pre>{{person|json}}</pre>
+    </div>
+</div>
